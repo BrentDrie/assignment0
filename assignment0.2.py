@@ -7,20 +7,17 @@ editblock = Tk()
 inputfield = Entry(editblock, width=30, borderwidth=3)
 inputfield.grid(row=1,column=0)
 
-
+userinput=inputfield.get()
 
 def Enterbutton():
+    with open ('capitolFile.txt', 'r') as readcapital:
+        datastring= readcapital.read().rstrip()
+        datalist=re.split('/', datastring)
+    
     with open ('capitolFile.txt', 'a') as writecapital:
         writecapital.writelines(inputfield.get())
         writecapital.write("\n")
 
-def compare_answer():
-    with open ('capitolFile.txt', 'r') as readcapital:
-        datastring= readcapital.read().rstrip()
-        
-
-
-    
 
 questionlable=Label(editblock, text="enter country here:" )
 questionlable.grid(row=0, column=0)
