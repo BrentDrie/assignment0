@@ -2,7 +2,7 @@ from tkinter import *
 
 root = Tk()
 
-root.geometry("300x300")
+root.geometry("400x300")
 
 buttonquit = Button(root, text="Exit", command=root.quit)
 buttonquit.grid(row=1,column=0)

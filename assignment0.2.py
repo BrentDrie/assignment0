@@ -1,30 +1,49 @@
+from asyncio import *
 from tkinter import *
+from datetime import *
 import re
 
-editblock = Tk()
-#popupblock= Tk()
+root = Tk()
 
-inputfield = Entry(editblock, width=30, borderwidth=3)
-inputfield.grid(row=1,column=0)
+with open('events.txt', 'r') as file:       
+    datastring= file.read().rstrip()              #creates string from file
 
-userinput=inputfield.get()
-
-def Enterbutton():
-    with open ('capitolFile.txt', 'r') as readcapital:
-        datastring= readcapital.read().rstrip()
-        datalist=re.split('/', datastring)
-    
-    with open ('capitolFile.txt', 'a') as writecapital:
-        writecapital.writelines(inputfield.get())
-        writecapital.write("\n")
-
-
-questionlable=Label(editblock, text="enter country here:" )
-questionlable.grid(row=0, column=0)
-
-enterbutton=Button(editblock, text="enter", padx=30, pady=10, command=Enterbutton, fg="black", bg="white")
-enterbutton.grid(row=2,column=0)
+datalist=re.split(',|\n', datastring)              #creates datalist from datastring
 
 
 
-editblock.mainloop()
+days_to1 = datetime.strptime(datalist[1], '%d/%m/%y').date() - datetime.today().date()
+days_to2 = datetime.strptime(datalist[3], '%d/%m/%y').date() - datetime.today().date()
+days_to3 = datetime.strptime(datalist[5], '%d/%m/%y').date() - datetime.today().date()
+
+
+
+
+event1=datalist[0]
+event2=datalist[2]
+event3=datalist[4]
+
+display1='It is %s until %s' % (days_to1, event1)
+display2='It is %s until %s' % (days_to2, event2)
+display3='It is %s until %s' % (days_to3, event3)
+
+title=Label(root, text="Brent's countdown calender")
+title.grid(row=0,column=0)
+
+datelabel1=Label(root, text=display1)
+datelabel1.grid(row=1,column=0)
+
+datelabel2=Label(root, text=display2)
+datelabel2.grid(row=2,column=0)
+
+datelabel3=Label(root, text=display3)
+datelabel3.grid(row=3,column=0)
+
+
+
+
+
+
+
+
+root.mainloop()
